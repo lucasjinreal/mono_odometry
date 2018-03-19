@@ -1,0 +1,3 @@
+/Volumes/xs/lans/space_cc/vision/mono_odometry/build/CMakeFiles/rebuild_cache.dir
+/Volumes/xs/lans/space_cc/vision/mono_odometry/build/CMakeFiles/edit_cache.dir
+/Volumes/xs/lans/space_cc/vision/mono_odometry/build/CMakeFiles/main.dir
