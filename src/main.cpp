@@ -12,40 +12,26 @@
 
 using namespace std;
 
-vector<string> list_files(string path, bool full_path) {
-    assert(!path.empty());
-    DIR *dp;
-    struct dirent *dirP;
-    vector<string> files;
-    if ((dp = opendir(&path[0u])) == nullptr) {
-        cout << "dir not exist." << endl;
-    } else {
-        cout << "dir found. " << path << endl;
-    }
-
-    while ((dirP = readdir(dp)) != nullptr) {
-        if (dirP->d_type == DT_REG) {
-            cout << "File: " << dirP->d_name << " " << dirP->d_type << endl;
-            if (full_path) {
-                files.push_back(path + string("/") + string(dirP->d_name));
-            } else {
-                files.emplace_back(string(dirP->d_name));
-            }
+void getAllImages(const string &imgPath, vector<string> &allImages) {
+    // simply range from 000000 ~ 004540, for continue of sequences
+    if (cao::os::exists(imgPath)) {
+        for (int i = 0; i < 4540; ++i) {
+            char img[256];
+            sprintf(img, "%06d.png", i);
+            allImages.push_back(cao::os::join(imgPath, img));
         }
+    } else {
+        cout << "path: " << imgPath << " not exist.\n";
     }
-
-    closedir(dp);
-    return files;
 }
-
-
 
 int main(int argc, char *argv[]) {
 
     string sequenceDir = argv[1];
 
     vector<string> allImages;
-    allImages = list_files(sequenceDir, true);
+    getAllImages(sequenceDir, allImages);
+
     for (int j=0; j<allImages.size();j++) {
         if (cao::os::suffix(allImages[j]) != "png") {
             allImages.erase(allImages.begin() + j);
